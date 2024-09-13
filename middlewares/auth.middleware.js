@@ -2,11 +2,12 @@ import jwt from "jsonwebtoken";
 
 import AppError from "../utils/AppError.js";
 import asyncHandler from "./asyncHandler.middleware.js";
+import User from "../models/user.model.js";
 
 export const isLoggedIn = asyncHandler(async (req, _res, next) => {
   // extracting token from the cookies
   const { token } = req.cookies;
-
+ 
   // If no token send unauthorized message
   if (!token) {
     return next(new AppError("Unauthorized, please login to continue", 401));
@@ -45,9 +46,9 @@ export const authorizeSubscribers = asyncHandler(async (req, _res, next) => {
   const user=await User.findById(req.user.id);
   console.log(user);
   
+  
   if (user.role !== "ADMIN" && user.subscription.status !== "active") {
     return next(new AppError("Please subscribe to access this route.", 403));
   }
-
   next();
 });
