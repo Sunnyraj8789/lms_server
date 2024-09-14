@@ -59,6 +59,10 @@ router
     upload.single('lecture'),
     addLectureToCourseById
   )
+
+  .delete(isLoggedIn,authorizeRoles('ADMIN'),deleteCourseById)
   .put(isLoggedIn, authorizeRoles('ADMIN'), updateCourseById);
+
+
 
 export default router;
