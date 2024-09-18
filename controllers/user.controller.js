@@ -155,6 +155,8 @@ export const logoutUser = asyncHandler(async (_req, res, _next) => {
     secure: process.env.NODE_ENV === 'production' ? true : false,
     maxAge: 0,
     httpOnly: true,
+    sameSite: 'None'//update------------
+
   });
 
   // Sending the response
